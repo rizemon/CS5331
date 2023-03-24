@@ -1,0 +1,15 @@
+version: "3"
+
+services: 
+
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - 8000:80
+
+  proxy:
+    build: ./proxy
+    restart: always
+    ports:
+      - 80:80
