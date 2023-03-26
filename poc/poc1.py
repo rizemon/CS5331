@@ -15,13 +15,6 @@ PAYLOAD = (
     b"X: x"
 )
 
-# Leave this section commented this if you to poison the next user's request
-# PAYLOAD += (
-#     b"GET / HTTP/1.1\r\n" +
-#     b"Host: localhost\r\n" +
-#     b"\r\n"
-# )
-
 def visualise_payload():
     print(PAYLOAD.decode().replace("\r\n", "\\r\\n\r\n"))
 
