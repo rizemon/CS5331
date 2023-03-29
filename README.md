@@ -1,5 +1,25 @@
 # CS5331
 
+> A great place to start is the [Scenarios](#scenarios) section, followed by the [Demonstrating the exploits](#demonstrating-the-exploits) section.
+
+- [CS5331](#cs5331)
+  - [Network Setup](#network-setup)
+  - [Scenarios](#scenarios)
+    - [Bypassing access controls (`/protected`)](#bypassing-access-controls-protected)
+    - [Forcing open-directs onto other users (`/redirected`)](#forcing-open-directs-onto-other-users-redirected)
+    - [Forcing reflected XSS onto other users (`/reflected`)](#forcing-reflected-xss-onto-other-users-reflected)
+    - [Stealing user's session cookies (`/captured`)](#stealing-users-session-cookies-captured)
+  - [Relevant vulnerabilities](#relevant-vulnerabilities)
+  - [Directory Layout](#directory-layout)
+  - [Making Changes](#making-changes)
+  - [PoC Scripts](#poc-scripts)
+  - [Demonstrating the exploits](#demonstrating-the-exploits)
+    - [Bypassing access controls](#bypassing-access-controls)
+    - [Forcing open-directs onto other users](#forcing-open-directs-onto-other-users)
+    - [Forcing reflected XSS onto other users](#forcing-reflected-xss-onto-other-users)
+    - [Stealing user's session cookies](#stealing-users-session-cookies)
+
+
 ## Network Setup
 
 ```
@@ -38,21 +58,9 @@
 
 ## Directory Layout
 
-* `./backend`: Contains files to build the `backend` container
-* `./proxy`: Contains files to build the `proxy` container
-* `./poc`: Contains scripts to run attacks
-
-```
-.
-├── backend
-│   ├── ...
-├── proxy
-│   ├── ...
-├── poc
-│   └── ...
-├── docker-compose.yml
-└── README.md
-```
+* `./backend/*`: Contains files to build the `backend` container
+* `./proxy/*`: Contains files to build the `proxy` container
+* `./poc/*`: Contains scripts to run attacks
 
 ## Making Changes
 
@@ -61,25 +69,35 @@
 3) `docker-compose up`
 4) Repeat.
 
-## PoC list
+## PoC Scripts
 * `poc1.py`: Exploits Gunicorn's vulnerability to poison the next user's request
-    * `poc1_capture.py`: Exploits Gunicorn's vulnerability to capture the next user's request and store it into the in-memory array
+    * `poc1_redirect.py`: Exploits Gunicorn's vulnerability to force the user to be redirected to `http://www.example.com`.
+    * `poc1_xss.py`: Exploits Gunicorn's vulnerability to force the user's browser to execute `alert(document.domain)`.
+    * `poc1_capture.py`: Exploits Gunicorn's vulnerability to capture the next user's request and store it into the server's in-memory array
 * `poc2.py`: Exploits HAProxy's vulnerability to poison the next user's request
 
-## Demonstrating the exploit
+## Demonstrating the exploits
 
-1) On terminal 1:
-    ```bash
-    $ curl http://127.0.0.1:80/protected
-    Unauthorized page
-    ```
-2) On terminal 2:
-    ```bash
-    $ python3 poc/poc1.py OR python3 poc/poc2.py
-    ...
-    ```
-2) On terminal 1:
-    ```bash
-    $ curl http://127.0.0.1:80/protected
-    Protected page
-    ```
+### Bypassing access controls
+
+1) Execute `python3 poc1.py`.
+2) **Within the next 5s**, browse to `http://localhost`.
+
+### Forcing open-directs onto other users
+
+1) Execute `python3 poc1_redirect.py`.
+2) **Within the next 5s**, browse to `http://localhost`.
+
+### Forcing reflected XSS onto other users
+
+1) Execute `python3 poc1_xss.py`.
+2) **Within the next 5s**, browse to `http://localhost`.
+
+### Stealing user's session cookies
+
+1) Execute `python3 poc1_capture.py`.
+2) **Within the next 5s**, execute the following:
+   ```bash
+   curl http://localhost/ -H "Cookie: FLAG"
+   ```
+3) Browse to `http://localhost/captured`.
