@@ -75,28 +75,31 @@
     * `poc1_xss.py`: Exploits Gunicorn's vulnerability to force the user's browser to execute `alert(document.domain)`.
     * `poc1_capture.py`: Exploits Gunicorn's vulnerability to capture the next user's request and store it into the server's in-memory array
 * `poc2.py`: Exploits HAProxy's vulnerability to poison the next user's request
+    * `poc2_redirect.py`: Exploits HAProxy's vulnerability to force the user to be redirected to `http://www.example.com`.
+    * `poc2_xss.py`: Exploits HAProxy's vulnerability to force the user's browser to execute `alert(document.domain)`.
+    * `poc2_capture.py`: Exploits HAProxy's vulnerability to capture the next user's request and store it into the server's in-memory array
 
 ## Demonstrating the exploits
 
 ### Bypassing access controls
 
 1) Execute `python3 poc1.py`.
-2) **Within the next 5s**, browse to `http://localhost`.
+2) **Within the next 30s**, browse to `http://localhost`.
 
 ### Forcing open-directs onto other users
 
 1) Execute `python3 poc1_redirect.py`.
-2) **Within the next 5s**, browse to `http://localhost`.
+2) **Within the next 30s**, browse to `http://localhost`.
 
 ### Forcing reflected XSS onto other users
 
 1) Execute `python3 poc1_xss.py`.
-2) **Within the next 5s**, browse to `http://localhost`.
+2) **Within the next 30s**, browse to `http://localhost`.
 
 ### Stealing user's session cookies
 
 1) Execute `python3 poc1_capture.py`.
-2) **Within the next 5s**, execute the following:
+2) **Within the next 30s**, execute the following:
    ```bash
    curl http://localhost/ -H "Cookie: FLAG"
    ```
