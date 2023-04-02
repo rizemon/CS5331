@@ -11,4 +11,4 @@ COPY . ./
 RUN python3 -m pip install -r requirements.txt
 
 # Use eventlet as workers
-CMD ["gunicorn", "app:app", "-k", "eventlet", "-b", "0.0.0.0:80", "--access-logfile", "-"]
+CMD ["gunicorn", "app:app", "-k", "eventlet", "-b", "0.0.0.0:80", "--keep-alive", "30", "--access-logfile", "-"]
