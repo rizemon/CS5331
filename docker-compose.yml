@@ -13,3 +13,9 @@ services:
     restart: always
     ports:
       - 80:80
+
+  guardian:
+    build: ./guardian
+    restart: always
+    ports:
+      - 8081:80
