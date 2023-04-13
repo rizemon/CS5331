@@ -1,4 +1,3 @@
-
 worker_class = "eventlet"
 
 # Listen on port 80
