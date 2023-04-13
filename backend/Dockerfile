@@ -10,5 +10,5 @@ COPY . ./
 # Install dependencies
 RUN python3 -m pip install -r requirements.txt
 
-# Use eventlet as workers
-CMD ["gunicorn", "app:app", "-k", "eventlet", "-b", "0.0.0.0:80", "--keep-alive", "30", "--access-logfile", "-"]
+# Run web application
+CMD ["gunicorn", "-c", "gunicorn.conf.py", "app:app"]
