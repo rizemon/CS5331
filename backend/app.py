@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect
 from json import dumps
+import base64
 
 app = Flask(__name__)
 
@@ -23,7 +24,8 @@ def protected():
 @app.route("/captured", methods=["GET", "POST"])
 def captured():
     if request.method == "POST":
-        content = request.form["content"]
+        encoded_content = request.get_data()
+        content = base64.b64decode(encoded_content).decode()
         captured_contents.append(content)
         return "<h1>Captured Page</h1>\n" + \
             "Appended: " + dumps([content])
