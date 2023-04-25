@@ -61,6 +61,7 @@
 * `./backend/*`: Contains files to build the `backend` container
 * `./proxy/*`: Contains files to build the `proxy` container
 * `./poc/*`: Contains scripts to run attacks
+* `./encoder/*`: Contains add on modules with attempts to mitigate HRS (encoding body contents)
 
 ## Making Changes
 
